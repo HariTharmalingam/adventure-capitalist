@@ -1,9 +1,12 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+
+import Product from '../product';
 
 const Home = () => (
-  <div>
-    <h1>Home</h1>
-  </div>
+  <Container className="mt-5">
+    <Product />
+  </Container>
 );
 
 export default Home;

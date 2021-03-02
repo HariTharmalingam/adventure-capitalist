@@ -9,14 +9,14 @@ const productMode = (env) => {
       reducers,
       compose(
         applyMiddleware(thunk),
-        window.devToolsExtension && window.devToolsExtension(),
-      ),
+        window.devToolsExtension && window.devToolsExtension()
+      )
     );
   }
 
   return createStore(
     reducers,
-    compose(applyMiddleware(thunk)),
+    compose(applyMiddleware(thunk))
   );
 };
 
