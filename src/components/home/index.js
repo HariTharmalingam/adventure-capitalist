@@ -1,11 +1,21 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 import Product from '../product';
+import BarrePrice from '../barre-price';
 
 const Home = () => (
-  <Container className="mt-5">
-    <Product />
+  <Container className="bg-dark" style={{ height: '100%' }} fluid>
+    <BarrePrice />
+    <Row>
+      <Product />
+      <Product />
+      <Product />
+      <Product />
+      <Product />
+      <Product />
+      <Product />
+    </Row>
   </Container>
 );
 
