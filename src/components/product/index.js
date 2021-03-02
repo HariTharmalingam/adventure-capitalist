@@ -12,8 +12,6 @@ const Product = class Product extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
     const {
       multi,
       name,
@@ -24,35 +22,56 @@ const Product = class Product extends Component {
 
     this.state = {
       name,
-      price: multi * price,
+      price,
       multi,
       totalSell: 0,
       timeFactory,
       totalCostFactory: multi * totalCostFactoryUnit,
-      totalCostFactoryUnit: multi * totalCostFactoryUnit
+      totalCostFactoryUnit: multi * totalCostFactoryUnit,
+      countLevelUp: 0
     };
+
+    this.handleClickBuyProduct = this.handleClickBuyProduct.bind(this);
+    this.handleClickBuyLevelUp = this.handleClickBuyLevelUp.bind(this);
+  }
+
+  handleClickBuyProduct() {
+    const { price, totalSell } = this.state;
+
+    this.setState({
+      totalSell: totalSell + price
+    });
+  }
+
+  handleClickBuyLevelUp() {
+    const { multi, price, countLevelUp } = this.state;
+
+    this.setState({
+      countLevelUp: countLevelUp + 1,
+      price: multi + price
+    });
   }
 
   render() {
     const {
       price,
-      multi,
       totalSell,
       totalCostFactory,
-      totalCostFactoryUnit
+      totalCostFactoryUnit,
+      countLevelUp
     } = this.state;
     const totalMoney = 2650;
 
     return (
       <Col md={6}>
         <Row>
-          <Col md={4}>
+          <Col md={4} onClick={this.handleClickBuyProduct}>
             <Row>
               <Col md={12}>
                 <img src={lemon} className="shadow p-4 bg-info rounded-circle img-fluid" alt="product" />
               </Col>
               <Col md={12}>
-                <h2 className="text-center text-white">{`${price} $`}</h2>
+                <h2 className="text-center text-white">{`${(price)} $`}</h2>
               </Col>
             </Row>
           </Col>
@@ -70,9 +89,9 @@ const Product = class Product extends Component {
               </Col>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col md={12} onClick={this.handleClickBuyLevelUp}>
                 <Alert variant="warning">
-                  <h1 className="display-6">{`Buy X${multi} : ${totalCostFactoryUnit} $`}</h1>
+                  <h1 className="display-6">{`Buy X${countLevelUp} : ${totalCostFactoryUnit} $`}</h1>
                 </Alert>
               </Col>
             </Row>

@@ -28,7 +28,6 @@ module.exports = {
             }
           ]
       },
-
       {
         test: /\.(c|sa|sc)ss$/,
         use: [
