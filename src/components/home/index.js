@@ -5,7 +5,7 @@ import Product from '../product';
 import BarrePrice from '../barre-price';
 
 const Home = () => (
-  <Container className="bg-dark" style={{ height: '100%' }} fluid>
+  <Container className="bg-dark" style={{ height: '100%' }}>
     <BarrePrice />
     <Row>
       <Product />
