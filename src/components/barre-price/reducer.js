@@ -9,7 +9,7 @@ const addMoneyToCapital = (state, action) => ({
 });
 
 const deleteMoneyToCapital = (state, action) => ({
-  money: (state.money - action.money).toFixed(2)
+  money: state.money - action.money
 });
 
 const barrePrice = (state = initialState, action) => {

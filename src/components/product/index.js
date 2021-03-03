@@ -7,6 +7,8 @@ import {
   ProgressBar
 } from 'react-bootstrap';
 
+import './index.scss';
+
 import { addMoneyToCapital, deleteMoneyToCapital } from '../barre-price/actions';
 import lemon from './images/lemon.png';
 
@@ -30,7 +32,6 @@ const Product = class Product extends Component {
       multi,
       totalSell: 0,
       timeFactory,
-      totalCostFactory: multi * totalCostFactoryUnit,
       totalCostFactoryUnit: multi * totalCostFactoryUnit,
       countLevelUp: 1
     };
@@ -74,14 +75,14 @@ const Product = class Product extends Component {
   }
 
   render() {
+    const { money } = this.props;
     const {
       price,
       totalSell,
-      totalCostFactory,
       totalCostFactoryUnit,
       countLevelUp
     } = this.state;
-    const totalMoney = 2650;
+    const totalCostFactoryMulti = (totalCostFactoryUnit * countLevelUp).toFixed(2);
 
     return (
       <Col md={6}>
@@ -106,13 +107,13 @@ const Product = class Product extends Component {
             </Row>
             <Row className="mb-3">
               <Col md={12}>
-                <ProgressBar variant="info" now={((totalMoney * 100) / totalCostFactory)} />
+                <ProgressBar variant="info" now={((money / totalCostFactoryMulti) * 100)} />
               </Col>
             </Row>
             <Row>
               <Col md={12} onClick={this.handleClickBuyLevelUp}>
                 <Alert variant="warning">
-                  <h1 className="display-6">{`X${countLevelUp} : $${(totalCostFactoryUnit * countLevelUp).toFixed(2)}`}</h1>
+                  <h1 className="display-6">{`X${countLevelUp} : $${totalCostFactoryMulti}`}</h1>
                 </Alert>
               </Col>
             </Row>
