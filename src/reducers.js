@@ -1,3 +1,7 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({});
+import barrePrice from './components/barre-price/reducer';
+
+export default combineReducers({
+  barrePrice
+});

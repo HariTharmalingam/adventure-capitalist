@@ -6,6 +6,8 @@ import {
   ProgressBar
 } from 'react-bootstrap';
 
+import store from '../../store';
+import { addMoneyToCapital } from '../barre-price/actions';
 import lemon from './images/lemon.png';
 
 const Product = class Product extends Component {
@@ -37,10 +39,13 @@ const Product = class Product extends Component {
 
   handleClickBuyProduct() {
     const { price, totalSell } = this.state;
+    const { dispatch } = store;
 
     this.setState({
       totalSell: totalSell + price
     });
+
+    dispatch(addMoneyToCapital(price));
   }
 
   handleClickBuyLevelUp() {
@@ -79,7 +84,7 @@ const Product = class Product extends Component {
             <Row>
               <Col md={12}>
                 <Alert variant="primary">
-                  <h1 className="display-6">{`${totalSell} $`}</h1>
+                  <h1 className="display-6">{`$${totalSell}`}</h1>
                 </Alert>
               </Col>
             </Row>
@@ -91,7 +96,7 @@ const Product = class Product extends Component {
             <Row>
               <Col md={12} onClick={this.handleClickBuyLevelUp}>
                 <Alert variant="warning">
-                  <h1 className="display-6">{`Buy X${countLevelUp} : ${totalCostFactoryUnit} $`}</h1>
+                  <h1 className="display-6">{`X${countLevelUp} : $${(totalCostFactoryUnit * countLevelUp).toFixed(2)}`}</h1>
                 </Alert>
               </Col>
             </Row>
