@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Row,
   Col,
@@ -6,13 +7,14 @@ import {
   ProgressBar
 } from 'react-bootstrap';
 
-import store from '../../store';
-import { addMoneyToCapital } from '../barre-price/actions';
+import { addMoneyToCapital, deleteMoneyToCapital } from '../barre-price/actions';
 import lemon from './images/lemon.png';
 
 const Product = class Product extends Component {
   constructor(props) {
     super(props);
+
+    this.props = props;
 
     const {
       multi,
@@ -38,8 +40,8 @@ const Product = class Product extends Component {
   }
 
   handleClickBuyProduct() {
+    const { dispatch } = this.props;
     const { price, totalSell } = this.state;
-    const { dispatch } = store;
 
     this.setState({
       totalSell: totalSell + price
@@ -49,12 +51,26 @@ const Product = class Product extends Component {
   }
 
   handleClickBuyLevelUp() {
-    const { multi, price, countLevelUp } = this.state;
+    const { money, dispatch } = this.props;
+    const {
+      multi,
+      price,
+      countLevelUp,
+      totalCostFactoryUnit
+    } = this.state;
+    const totalWithMulti = totalCostFactoryUnit * countLevelUp;
+    const totalNagativeCoast = money - totalWithMulti;
+
+    if (totalNagativeCoast < 0) {
+      return;
+    }
 
     this.setState({
       countLevelUp: countLevelUp + 1,
       price: multi + price
     });
+
+    dispatch(deleteMoneyToCapital(totalWithMulti));
   }
 
   render() {
@@ -107,4 +123,8 @@ const Product = class Product extends Component {
   }
 };
 
-export default Product;
+const mapToProps = (state) => ({
+  money: state.barrePrice.money
+});
+
+export default connect(mapToProps)(Product);
