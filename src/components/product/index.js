@@ -10,7 +10,6 @@ import {
 import './index.scss';
 
 import { addMoneyToCapital, deleteMoneyToCapital } from '../barre-price/actions';
-import lemon from './images/lemon.png';
 
 const Product = class Product extends Component {
   constructor(props) {
@@ -23,7 +22,8 @@ const Product = class Product extends Component {
       name,
       price,
       timeFactory,
-      totalCostFactoryUnit
+      totalCostFactoryUnit,
+      image
     } = props.data;
 
     this.state = {
@@ -33,7 +33,8 @@ const Product = class Product extends Component {
       totalSell: 0,
       timeFactory,
       totalCostFactoryUnit: multi * totalCostFactoryUnit,
-      countLevelUp: 1
+      countLevelUp: 1,
+      image
     };
 
     this.handleClickBuyProduct = this.handleClickBuyProduct.bind(this);
@@ -80,7 +81,8 @@ const Product = class Product extends Component {
       price,
       totalSell,
       totalCostFactoryUnit,
-      countLevelUp
+      countLevelUp,
+      image
     } = this.state;
     const totalCostFactoryMulti = (totalCostFactoryUnit * countLevelUp).toFixed(2);
 
@@ -90,7 +92,7 @@ const Product = class Product extends Component {
           <Col md={4} onClick={this.handleClickBuyProduct}>
             <Row>
               <Col md={12}>
-                <img src={lemon} className="shadow p-4 bg-info rounded-circle img-fluid" alt="product" />
+                <img src={image} className="shadow p-4 bg-info rounded-circle img-fluid" alt="product" />
               </Col>
               <Col md={12}>
                 <h2 className="text-center text-white">{`${(price)} $`}</h2>
