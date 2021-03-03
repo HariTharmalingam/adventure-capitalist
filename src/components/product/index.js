@@ -28,7 +28,7 @@ const Product = class Product extends Component {
       timeFactory,
       totalCostFactory: multi * totalCostFactoryUnit,
       totalCostFactoryUnit: multi * totalCostFactoryUnit,
-      countLevelUp: 0
+      countLevelUp: 1
     };
 
     this.handleClickBuyProduct = this.handleClickBuyProduct.bind(this);
