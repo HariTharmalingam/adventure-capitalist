@@ -19,7 +19,7 @@ const initialState = [{
   totalCostFactoryUnit: 120,
   image: 'https://www.flaticon.com/svg/vstatic/svg/595/595533.svg?token=exp=1614783516~hmac=2457c77ce65176366907651c7b852535'
 }, {
-  unlock: false,
+  unlock: true,
   unlockPricing: 100000,
   multi: 1,
   name: 'car',

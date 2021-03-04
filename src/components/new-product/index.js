@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Col, Row, Button } from 'react-bootstrap';
 
 import { unlockProduct } from '../home/actions';
+import { deleteMoneyToCapital } from '../barre-price/actions';
 import store from '../../store';
 
 const NewPorduct = class NewPorduct extends Component {
@@ -12,9 +14,15 @@ const NewPorduct = class NewPorduct extends Component {
   }
 
   handleUnlockProduct() {
-    const { idProduct } = this.props;
+    const { idProduct, money, price } = this.props;
     const { dispatch } = store;
+    const totalCoast = money - price;
 
+    if (totalCoast < 0) {
+      return;
+    }
+
+    dispatch(deleteMoneyToCapital(price));
     dispatch(unlockProduct(idProduct));
   }
 
@@ -31,4 +39,8 @@ const NewPorduct = class NewPorduct extends Component {
   }
 };
 
-export default NewPorduct;
+const mapToProps = (state) => ({
+  money: state.barrePrice.money
+});
+
+export default connect(mapToProps)(NewPorduct);
