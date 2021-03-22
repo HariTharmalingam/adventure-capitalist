@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 
 import store from '../../store';
-import { addMoney } from '../barre-price/actions';
+import { addMoney, removeMoney } from '../barre-price/actions';
 
 import './index.scss';
 
@@ -16,38 +16,52 @@ class Product extends Component {
   constructor(props) {
     super(props);
 
-    const { data, money } = this.props;
-    const { totalCostFactoryUnit } = data;
+    const { data } = this.props;
 
     this.state = {
       data,
-      totalCostBuy: 0,
-      percentageNextUpdated: (money * 100) / totalCostFactoryUnit
+      totalCostBuy: 0
     };
 
     this.handleBuyProduct = this.handleBuyProduct.bind(this);
+    this.handleUpdateProduct = this.handleUpdateProduct.bind(this);
   }
 
   handleBuyProduct() {
     const { dispatch } = store;
     const { totalCostBuy, data } = this.state;
-    const { price, totalCostFactoryUnit } = data;
-    const { money } = this.props;
-
+    const { price } = data;
 
     dispatch(addMoney(price));
 
     this.setState({
-      totalCostBuy: totalCostBuy + price,
-      percentageNextUpdated: (money * 100) / totalCostFactoryUnit
+      totalCostBuy: totalCostBuy + price
     });
+  }
+
+  handleUpdateProduct() {
+    const { dispatch } = store;
+    const { data } = this.state;
+    const { totalCostFactoryUnit } = data;
+    const { money } = this.props;
+
+    if (money - totalCostFactoryUnit < 0) {
+      return;
+    }
+
+    dispatch(removeMoney(totalCostFactoryUnit));
+
+    data.multi += 1;
+    data.totalCostFactoryUnit *= data.multi;
+    data.price += (data.price + totalCostFactoryUnit) / 5;
+
+    this.setState({ data });
   }
 
   render() {
     const {
       data,
-      totalCostBuy,
-      percentageNextUpdated
+      totalCostBuy
     } = this.state;
 
     const {
@@ -56,6 +70,9 @@ class Product extends Component {
       price,
       totalCostFactoryUnit
     } = data;
+
+    const { money } = this.props;
+    const percentageNextUpdate = ((money * 100) / totalCostFactoryUnit).toFixed(0);
 
     return (
       <Col md={6}>
@@ -70,7 +87,7 @@ class Product extends Component {
                 />
               </Col>
               <Col md={12}>
-                <h2 className="text-center text-white">{`${price} $`}</h2>
+                <h2 className="text-center text-white">{`${price.toFixed(0)} $`}</h2>
               </Col>
             </Row>
           </Col>
@@ -78,19 +95,19 @@ class Product extends Component {
             <Row>
               <Col md={12}>
                 <Alert variant="primary">
-                  <h1 className="display-6">{`$${totalCostBuy}`}</h1>
+                  <h1 className="display-6">{`$${totalCostBuy.toFixed(2)}`}</h1>
                 </Alert>
               </Col>
             </Row>
             <Row className="mb-3">
               <Col md={12}>
-                <ProgressBar variant="info" now={percentageNextUpdated} />
+                <ProgressBar variant="info" now={percentageNextUpdate} />
               </Col>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col md={12} onClick={this.handleUpdateProduct}>
                 <Alert variant="warning">
-                  <h1 className="display-6">{`X${multi} : $${totalCostFactoryUnit}`}</h1>
+                  <h1 className="display-6">{`X${multi} : $${totalCostFactoryUnit.toFixed(2)}`}</h1>
                 </Alert>
               </Col>
             </Row>
