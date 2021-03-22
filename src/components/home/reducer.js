@@ -1,14 +1,12 @@
-import { actionsType } from './actions';
-
 const initialState = [{
   unlock: true,
   unlockPricing: 0,
   multi: 1,
   name: 'lemon',
   price: 1,
-  timeFactory: 1000,
+  timeFactory: 3000,
   totalCostFactoryUnit: 2.65,
-  image: 'https://www.flaticon.com/svg/vstatic/svg/1998/1998112.svg?token=exp=1614784149~hmac=e1fb40dc8a101b666b50aa89520adcab'
+  image: 'https://www.flaticon.com/svg/vstatic/svg/1998/1998112.svg?token=exp=1616403110~hmac=96d40d91dd3459dc5b00fa09d8a3b76f'
 }, {
   unlock: false,
   unlockPricing: 2000,
@@ -17,7 +15,7 @@ const initialState = [{
   price: 60,
   timeFactory: 2000,
   totalCostFactoryUnit: 120,
-  image: 'https://www.flaticon.com/svg/vstatic/svg/595/595533.svg?token=exp=1614783516~hmac=2457c77ce65176366907651c7b852535'
+  image: 'https://www.flaticon.com/svg/vstatic/svg/595/595706.svg?token=exp=1616403155~hmac=9712157b87a63e312066cc184fd29512'
 }, {
   unlock: false,
   unlockPricing: 100000,
@@ -26,21 +24,11 @@ const initialState = [{
   price: 40000,
   timeFactory: 5000,
   totalCostFactoryUnit: 160000,
-  image: 'https://www.flaticon.com/svg/vstatic/svg/741/741407.svg?token=exp=1614784130~hmac=408a27df434d57babce19bd241253665'
+  image: 'https://www.flaticon.com/svg/vstatic/svg/741/741407.svg?token=exp=1616403180~hmac=5c47259b9de59d2e62c457990133d087'
 }];
-
-const unlockProduct = (state, action) => {
-  const stateUpdated = [...state];
-
-  stateUpdated[action.idProduct].unlock = true;
-
-  return stateUpdated;
-};
 
 const data = (state = initialState, action) => {
   switch (action.type) {
-    case actionsType.UNLOCK_PRODUCT:
-      return unlockProduct(state, action);
     default:
       return state;
   }

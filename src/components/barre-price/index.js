@@ -7,7 +7,7 @@ const BarrePrice = ({ money }) => (
     <Col md={12} className="border border-success">
       <Navbar expand="lg" variant="dark" bg="dark">
         <Navbar.Brand>
-          <h1 className="display-3 text-success">{`$ ${money.toFixed(2)}`}</h1>
+          <h1 className="display-3 text-success">{`$ ${money}`}</h1>
         </Navbar.Brand>
       </Navbar>
     </Col>
